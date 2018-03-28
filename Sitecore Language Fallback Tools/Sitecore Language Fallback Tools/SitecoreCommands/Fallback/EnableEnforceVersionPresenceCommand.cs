@@ -11,7 +11,7 @@ namespace LanguageFallbackTools.Fallback
         /// </summary>
         public override string CommandName
         {
-            get { return "Check 'Enforce Version Presence'"; }
+            get { return "Check 'Enforce Version Presence'  on standard values items"; }
         }
 
         /// <summary>

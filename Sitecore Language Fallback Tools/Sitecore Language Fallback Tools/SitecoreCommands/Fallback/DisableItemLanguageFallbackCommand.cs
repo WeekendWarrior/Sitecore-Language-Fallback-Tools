@@ -15,7 +15,7 @@ namespace LanguageFallbackTools.Fallback
         /// </summary>
         public override string CommandName
         {
-            get { return "Uncheck 'Enable Language Fallback'"; }
+            get { return "Uncheck 'Enable Language Fallback' on standard values items"; }
         }
 
         /// <summary>

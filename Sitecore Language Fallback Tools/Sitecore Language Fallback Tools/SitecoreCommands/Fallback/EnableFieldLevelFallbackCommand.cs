@@ -14,7 +14,7 @@ namespace LanguageFallbackTools.Fallback
         /// </summary>
         public override string CommandName
         {
-            get { return "Check 'Enable field level fallback'"; }
+            get { return "Check 'Enable field level fallback' on field items"; }
         }
 
         /// <summary>

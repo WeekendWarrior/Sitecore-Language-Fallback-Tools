@@ -56,10 +56,9 @@
     <Compile Include="SitecoreCommands\Fallback\EnableItemLanguageFallbackCommand.cs" />
     <Compile Include="SitecoreCommands\Fallback\MultilingualTemplateCommand.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="App_Config\Include\" />
-  </ItemGroup>
-  <ItemGroup>
+    <None Include="App_Config\Include\LanguageFallbackTools.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
