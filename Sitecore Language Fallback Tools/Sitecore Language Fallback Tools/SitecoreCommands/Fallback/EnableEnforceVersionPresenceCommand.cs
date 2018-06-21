@@ -1,5 +1,4 @@
 ﻿using Sitecore.Data.Items;
-using System;
 using System.Linq;
 
 namespace LanguageFallbackTools.Fallback
@@ -18,14 +17,14 @@ namespace LanguageFallbackTools.Fallback
         /// Custom Sitecore Content editor Command to automatically check the "Enforce Version Presence" field on TemplateField items
         /// on the selected item and all descendants.
         /// </summary>
-        public override int Process(Item parentItem)
+        public override int Process(Item contextItem)
         {
             int count = 0;
 
             // Process the parent item.
-            if (parentItem.Name.Equals(Configuration.ItemNames.StandardValues, StringComparison.InvariantCultureIgnoreCase))
+            if (contextItem.Template.StandardValues.ID == contextItem.ID)
             {
-                bool valueChanged = SetCheckboxFieldValue(parentItem, Configuration.TemplateFieldIds.EnforceVersionPresence);
+                bool valueChanged = SetCheckboxFieldValue(contextItem, Sitecore.FieldIDs.EnforceVersionPresence);
 
                 if (valueChanged)
                 {
@@ -34,15 +33,15 @@ namespace LanguageFallbackTools.Fallback
             }
 
             // Get all the standard value items in the parent item's descendants.
-            Item[] standardValueItems = parentItem.Axes.GetDescendants()
-                .Where(d => d.Name.Equals(Configuration.ItemNames.StandardValues, StringComparison.InvariantCultureIgnoreCase))
+            Item[] standardValueItems = contextItem.Axes.GetDescendants()
+                .Where(d => d.Template.StandardValues.ID == d.ID)
                 .OrderBy(o => o.Paths.FullPath)
                 .ToArray();
 
             // Update each item.
             foreach (Item standardValuesItem in standardValueItems)
             {
-                bool valueChanged = SetCheckboxFieldValue(standardValuesItem, Configuration.TemplateFieldIds.EnforceVersionPresence);
+                bool valueChanged = SetCheckboxFieldValue(standardValuesItem, Sitecore.FieldIDs.EnforceVersionPresence);
 
                 if (valueChanged)
                 {

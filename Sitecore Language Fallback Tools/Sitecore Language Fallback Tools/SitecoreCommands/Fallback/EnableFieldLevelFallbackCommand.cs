@@ -21,14 +21,14 @@ namespace LanguageFallbackTools.Fallback
         /// Custom Sitecore Content editor Command to automatically check the "Enable field level fallback" field on TemplateField items
         /// on the selected item and all descendants.
         /// </summary>
-        public override int Process(Item parentItem)
+        public override int Process(Item contextItem)
         {
             int count = 0;
 
             // Process the parent item.
-            if (parentItem.TemplateID == Configuration.TemplateIDs.TemplateFieldID)
+            if (contextItem.TemplateID == Sitecore.TemplateIDs.TemplateField)
             {
-                bool valueChanged = SetCheckboxFieldValue(parentItem, Configuration.TemplateFieldIds.EnableSharedLanguageFallback);
+                bool valueChanged = SetCheckboxFieldValue(contextItem, Sitecore.FieldIDs.EnableSharedLanguageFallback);
 
                 if (valueChanged)
                 {
@@ -37,14 +37,14 @@ namespace LanguageFallbackTools.Fallback
             }
 
             // Get all the template fields 
-            Item[] templateFieldItems = parentItem.Axes.GetDescendants()
-                .Where(d => d.TemplateID == Configuration.TemplateIDs.TemplateFieldID)
+            Item[] templateFieldItems = contextItem.Axes.GetDescendants()
+                .Where(d => d.TemplateID == Sitecore.TemplateIDs.TemplateField)
                 .OrderBy(o => o.Paths.FullPath)
                 .ToArray();
 
             foreach (Item templateFieldItem in templateFieldItems)
             {
-                bool valueChanged = SetCheckboxFieldValue(templateFieldItem, Configuration.TemplateFieldIds.EnableSharedLanguageFallback);
+                bool valueChanged = SetCheckboxFieldValue(templateFieldItem, Sitecore.FieldIDs.EnableSharedLanguageFallback);
 
                 if (valueChanged)
                 {
